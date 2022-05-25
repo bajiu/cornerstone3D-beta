@@ -21,7 +21,6 @@ declare namespace activeSegmentation {
 type ActorEntry = {
     uid: string;
     volumeActor: VolumeActor;
-    slabThicknessEnabled?: boolean;
     slabThickness?: number;
 };
 
@@ -1071,6 +1070,8 @@ export class CrosshairsTool extends AnnotationTool {
     _pointNearTool(element: any, annotation: any, canvasCoords: any, proximity: any): boolean;
     // (undocumented)
     renderAnnotation: (enabledElement: Types_2.IEnabledElement, svgDrawingHelper: any) => void;
+    // (undocumented)
+    setSlabThickness(viewport: any, slabThickness: any): void;
     // (undocumented)
     toolCenter: Types_2.Point3;
     // (undocumented)
@@ -2317,9 +2318,6 @@ interface IVolumeInput {
     slabThickness?: number;
     // actorUID for segmentations, since two segmentations with the same volumeId
     // can have different representations
-    slabThicknessEnabled?: boolean;
-    // actorUID for segmentations, since two segmentations with the same volumeId
-    // can have different representations
     visibility?: boolean;
     // actorUID for segmentations, since two segmentations with the same volumeId
     // can have different representations
@@ -2353,8 +2351,7 @@ interface IVolumeViewport extends IViewport {
     getSlabThickness(): number;
     removeVolumeActors(actorUIDs: Array<string>, immediate?: boolean): void;
     resetCamera(resetPan?: boolean, resetZoom?: boolean): number;
-    setSlabThicknessForAllVolumeActors(slabThickness: number): void;
-    setSlabThicknessForVolumeActor(actorUID: string, slabThickness: number): void;
+    setSlabThickness(slabThickness: number, actorUIDs?: Array<string>): void;
     setVolumes(
     volumeInputArray: Array<IVolumeInput>,
     immediate?: boolean

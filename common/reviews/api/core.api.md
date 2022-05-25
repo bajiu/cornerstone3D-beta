@@ -16,7 +16,6 @@ import type { vtkVolume } from '@kitware/vtk.js/Rendering/Core/Volume';
 type ActorEntry = {
     uid: string;
     volumeActor: VolumeActor;
-    slabThicknessEnabled?: boolean;
     slabThickness?: number;
 };
 
@@ -1289,8 +1288,6 @@ interface IVolumeInput {
     // (undocumented)
     slabThickness?: number;
     // (undocumented)
-    slabThicknessEnabled?: boolean;
-    // (undocumented)
     visibility?: boolean;
     // (undocumented)
     volumeId: string;
@@ -1335,9 +1332,7 @@ interface IVolumeViewport extends IViewport {
     // (undocumented)
     resetCamera(resetPan?: boolean, resetZoom?: boolean): number;
     // (undocumented)
-    setSlabThicknessForAllVolumeActors(slabThickness: number): void;
-    // (undocumented)
-    setSlabThicknessForVolumeActor(actorUID: string, slabThickness: number): void;
+    setSlabThickness(slabThickness: number, actorUIDs?: Array<string>): void;
     // (undocumented)
     setVolumes(volumeInputArray: Array<IVolumeInput>, immediate?: boolean): Promise<void>;
     // (undocumented)
@@ -1848,8 +1843,6 @@ export class Viewport implements IViewport {
     // (undocumented)
     canvasToWorld: (canvasPos: Point2) => Point3;
     // (undocumented)
-    checkAndTriggerCameraModifiedEvent(previousCamera: ICamera, updatedCamera: ICamera): void;
-    // (undocumented)
     customRenderViewportToCanvas: () => unknown;
     // (undocumented)
     readonly defaultOptions: any;
@@ -1936,9 +1929,11 @@ export class Viewport implements IViewport {
     // (undocumented)
     sy: number;
     // (undocumented)
+    TriggerCameraModifiedEventIfNecessary(previousCamera: ICamera, updatedCamera: ICamera): void;
+    // (undocumented)
     readonly type: ViewportType;
     // (undocumented)
-    updateActorsClippingPlanesOnCameraModified(updatedCamera: ICamera): void;
+    updateActorsClippingPlanes(updatedCamera: ICamera): void;
     // (undocumented)
     static get useCustomRenderingPipeline(): boolean;
     // (undocumented)
@@ -2084,9 +2079,7 @@ export class VolumeViewport extends Viewport implements IVolumeViewport {
     // (undocumented)
     resetCamera(resetPan?: boolean, resetZoom?: boolean): number;
     // (undocumented)
-    setSlabThicknessForAllVolumeActors(slabThickness: number): void;
-    // (undocumented)
-    setSlabThicknessForVolumeActor(actorUID: string, slabThickness: number): void;
+    setSlabThickness(slabThickness: number, actorUIDs?: string[]): void;
     // (undocumented)
     setVolumes(volumeInputArray: Array<IVolumeInput>, immediate?: boolean): Promise<void>;
     // (undocumented)
