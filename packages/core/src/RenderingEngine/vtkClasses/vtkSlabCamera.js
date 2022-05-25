@@ -43,7 +43,9 @@ function vtkSlabCamera(publicAPI, model) {
     mat4.identity(tmpMatrix);
 
     const cRange0 = model.distance;
-    const cRange1 = model.distance + 0.1;
+
+    // Davide look at me
+    const cRange1 = model.distance + 100;
     const cWidth = cRange1 - cRange0;
     const cRange = [
       cRange0 + ((nearz + 1) * cWidth) / 2.0,

@@ -199,6 +199,7 @@ async function run() {
   );
 
   const sphereSource = vtkSphereSource.newInstance();
+  sphereSource.setRadius(10);
   const actor = vtkActor.newInstance();
   const mapper = vtkMapper.newInstance();
 
